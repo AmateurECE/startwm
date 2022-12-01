@@ -22,7 +22,6 @@ $(B)/startwm.sh: startwm.sh $(B); cp $< $@
 INSTALL_ARTIFACTS += $(B)/greetd.toml
 INSTALL_ARTIFACTS += $(B)/greetd.conf
 INSTALL_ARTIFACTS += $(B)/startwm.sh
-INSTALL_ARTIFACTS += $(B)/profile.sh
 
 m1: $(B)/m1.lock
 vm: $(B)/vm.lock
@@ -30,7 +29,9 @@ vm: $(B)/vm.lock
 $(B)/m1.lock: $(B)/greetd.conf $(B)/startwm.sh
 	: # Building for Apple M1 Hardware
 	cp m1/greetd.toml $(B)
-	cp m1/profile.sh $(B)
+	: # Don't currently install the /etc/profile.d script, since this
+	: # Sets the shell to Hyprland
+	: # cp m1/profile.sh $(B)
 	touch $@
 
 $(B)/vm.lock: $(B)/greetd.conf $(B)/startwm.sh
@@ -48,7 +49,10 @@ install: $(INSTALL_ARTIFACTS)
 		"$(DESTDIR)$(systemd_unitdir)/greetd.service.d/greetd.conf"
 	install -Dm644 $(B)/greetd.toml \
 		"$(DESTDIR)$(datadir)/greetd/greetd.toml"
-	install -Dm644 $(B)/profile.sh "$(DESTDIR)/etc/profile.d/startwm.sh"
+	if [ -f $(B)/profile.sh ]; then \
+		install -Dm644 $(B)/profile.sh \
+			"$(DESTDIR)/etc/profile.d/startwm.sh"; \
+	fi
 	install -Dm755 $(B)/startwm.sh "$(DESTDIR)/usr/bin/startwm"
 
 clean:
