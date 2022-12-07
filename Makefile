@@ -8,7 +8,7 @@
 #
 # CREATED:	    11/30/2022
 #
-# LAST EDITED:	    11/30/2022
+# LAST EDITED:	    12/07/2022
 ###
 
 B=build
@@ -29,9 +29,7 @@ vm: $(B)/vm.lock
 $(B)/m1.lock: $(B)/greetd.conf $(B)/startwm.sh
 	: # Building for Apple M1 Hardware
 	cp m1/greetd.toml $(B)
-	: # Don't currently install the /etc/profile.d script, since this
-	: # Sets the shell to Hyprland
-	: # cp m1/profile.sh $(B)
+	cp m1/profile.sh $(B)
 	touch $@
 
 $(B)/vm.lock: $(B)/greetd.conf $(B)/startwm.sh
