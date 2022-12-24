@@ -1,1 +1,0 @@
-export STARTWM_SHELL=hyprland
