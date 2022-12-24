@@ -14,7 +14,7 @@
 
 export XDG_SESSION_TYPE=wayland
 
-STARTWM_SHELL=$1 || shift
+STARTWM_SHELL=$1 && shift
 
 # Start sway if no other shell is specified.
 : ${STARTWM_SHELL:=sway}
