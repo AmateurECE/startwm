@@ -37,11 +37,11 @@ start_shell() {
 case "$STARTWM_SHELL" in
     sway)
         setup_env_sway
-        start_shell sway $@
+        start_shell /usr/bin/sway $@
         ;;
     hyprland)
         setup_env_hyprland
-        start_shell Hyprland $@
+        start_shell /usr/bin/Hyprland $@
         ;;
     *)
         >&2 printf '%s\n' "Unknown window manager $STARTWM_SHELL"
