@@ -31,7 +31,7 @@ setup_env_hyprland() {
 
 start_shell() {
     local shell=$1 || shift
-    systemd-cat --identifier=wayland $shell $@
+    exec $shell $@
 }
 
 case "$STARTWM_SHELL" in
