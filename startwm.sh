@@ -30,7 +30,7 @@ setup_env_hyprland() {
 }
 
 start_shell() {
-    local shell=$1 || shift
+    local shell=$1 && shift
     exec $shell $@
 }
 
