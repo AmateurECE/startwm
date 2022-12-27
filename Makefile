@@ -8,7 +8,7 @@
 #
 # CREATED:	    11/30/2022
 #
-# LAST EDITED:	    12/24/2022
+# LAST EDITED:	    12/27/2022
 ###
 
 export B:=$(shell pwd)/build
@@ -17,19 +17,18 @@ export DESTDIR
 all: m1
 
 $(B): ; mkdir -p $@
-$(B)/greetd.conf: greetd.conf $(B); cp $< $@
 $(B)/startwm.sh: startwm.sh $(B); cp $< $@
 
 m1: $(B)/m1.lock
 vm: $(B)/vm.lock
 
-$(B)/m1.lock: $(B)/greetd.conf $(B)/startwm.sh
+$(B)/m1.lock: $(B)/startwm.sh
 	: # Building for Apple M1 Hardware
 	cp m1/Makefile $(B)
 	$(MAKE) -C m1
 	touch $@
 
-$(B)/vm.lock: $(B)/greetd.conf $(B)/startwm.sh
+$(B)/vm.lock: $(B)/startwm.sh
 	: # Building for a virtual machine
 	cp vm/Makefile $(B)
 	$(MAKE) -C vm
@@ -40,8 +39,6 @@ export systemd_unitdir=/usr/lib/systemd/system
 
 install: $(INSTALL_ARTIFACTS)
 	: # Installing sources
-	install -Dm644 $(B)/greetd.conf \
-		"$(DESTDIR)$(systemd_unitdir)/greetd.service.d/greetd.conf"
 	install -Dm755 $(B)/startwm.sh "$(DESTDIR)/usr/bin/startwm"
 	$(MAKE) -C $(B) install
 
