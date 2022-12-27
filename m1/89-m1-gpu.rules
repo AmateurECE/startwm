@@ -1,3 +1,1 @@
-ACTION=="add", SUBSYSTEM=="drm", ENV{ID_PATH}=="platform-406400000.gpu", TAG+="systemd"
-
-ACTION=="add", SUBSYSTEM=="drm", ENV{ID_PATH}=="platform-soc:display-subsystem", TAG+="systemd"
+ACTION=="add", SUBSYSTEM=="drm", ENV{ID_PATH}=="platform-406400000.gpu", SYMLINK+="appledrm", TAG+="systemd"
