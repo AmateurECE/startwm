@@ -18,6 +18,7 @@ INSTALL_ARTIFACTS+=$(B)/environments.conf
 INSTALL_ARTIFACTS+=$(B)/sway.conf
 INSTALL_ARTIFACTS+=$(B)/gtkgreet.css
 INSTALL_ARTIFACTS+=$(B)/89-m1-gpu.rules
+INSTALL_ARTIFACTS+=$(B)/settings.ini
 
 all: $(INSTALL_ARTIFACTS)
 
@@ -27,6 +28,7 @@ $(B)/environments.conf: environments.conf $(B); cp $< $@
 $(B)/sway.conf: sway.conf $(B); cp $< $@
 $(B)/gtkgreet.css: gtkgreet.css $(B); cp $< $@
 $(B)/89-m1-gpu.rules: 89-m1-gpu.rules $(B); cp $< $@
+$(B)/settings.ini: settings.ini $(B); cp $< $@
 
 install:
 	install -Dm644 greetd.toml \
@@ -39,5 +41,6 @@ install:
 		"$(DESTDIR)/usr/lib/udev/rules.d/89-m1-gpu.rules"
 	install -Dm644 greetd.conf \
 		"$(DESTDIR)$(systemd_unitdir)/greetd.service.d/greetd.conf"
+	install -Dm644 settings.ini "$(DESTDIR)/etc/gtk-3.0/settings.ini"
 
 ###############################################################################
